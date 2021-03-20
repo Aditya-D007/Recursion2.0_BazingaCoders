@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import reducer from "./store/reducers/auth";
-import {createStore, compose, applyMiddleware, combineReducers} from 'redux';
+import hospitalReducer from "./store/reducers/hospitalAuth";
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
@@ -12,7 +13,8 @@ import thunk from 'redux-thunk';
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 var rootReducer = combineReducers({
-    patientReducer:reducer
+    patientReducer: reducer,
+    hospitalReducer: hospitalReducer
 
 })
 

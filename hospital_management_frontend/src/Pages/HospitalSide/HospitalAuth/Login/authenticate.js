@@ -7,7 +7,7 @@ import {NavLink} from 'react-router-dom';
 
 import RegisterCss from './auth.module.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import * as actions from '../../../../store/actions/patientAuthActions'
+import * as actions from '../../../../store/actions/hospitalAuthActions'
 
 import {
     ListItem,
@@ -27,8 +27,8 @@ class Login extends Component {
     state = {
         isLogin: false,
         phone_no: null,
-        email_id: "reuben211999@gmail.com",
-        pass_word: "1234",
+        email_id: "gemhospital@gmail.com",
+        pass_word: "12345678",
         message_for_username_taken: ""
 
     };
@@ -46,7 +46,6 @@ class Login extends Component {
         if (email && password) {
             console.log(email, password);
             this.props.onAuth(email, password);
-
 
 
         }
@@ -146,20 +145,20 @@ class Login extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//
-//     return {
-//         isAuthenticated: state.token !== null,
-//         isAdmin: state.admin_priority,
-//         loading: state.loading,
-//         error: state.error
-//     }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onAuth: (email_id, password) => dispatch(actions.authLogin(email_id, password))
-//     }
-// }
-export default (Login);
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const mapStateToProps = state => {
+
+    return {
+        isAuthenticated: state.hospitalReducer.token !== null,
+        isAdmin: state.admin_priority,
+        loading: state.loading,
+        error: state.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email_id, password) => dispatch(actions.hospitalAuthLogin(email_id, password))
+    }
+}
+// export default (Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

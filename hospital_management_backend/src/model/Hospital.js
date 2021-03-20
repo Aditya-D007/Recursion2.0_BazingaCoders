@@ -10,6 +10,7 @@ const hospitalSchema = new mongoose.Schema({
     hospitalId: {
         type: String,
         required: true,
+        unique: true,
     },
     hospitalPhone: {
         type: String,

@@ -133,11 +133,11 @@ class Authentication extends Component {
 
     state = {
         isLogin: false,
-        hospital_name: "",
-        address: "",
-        phone_no: "",
-        email_id: "",
-        pass_word: "1234",
+        hospital_name: "GEM",
+        address: "kandivali",
+        phone_no: "8888888888",
+        email_id: "genhospital@gmail.com",
+        pass_word: "12345678",
         date: new Date(),
         latitude: null,
         longitude: null,
@@ -178,7 +178,7 @@ class Authentication extends Component {
         
     };
 
-    submitHandler = async (event) => {
+    submitHandler = async(event) => {
         
         event.preventDefault();
         const email = this.emailEl.current.value;
@@ -187,14 +187,13 @@ class Authentication extends Component {
         // const password1 = this.passworld1.current.value;
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
-        const Gender = this.state.gender;
         const birth_date = this.state.date;
         const clinic_coordinates = [
             this.state.longitude,
             this.state.latitude,
           ];
         // const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
-        console.log(email, hospitalName, hospitalAddress, password, Phone, Gender)
+        console.log(email, hospitalName, hospitalAddress, password, Phone)
         if (email && hospitalName && hospitalAddress && password && Phone !== "") {
             // const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
             //     return data
@@ -213,7 +212,7 @@ class Authentication extends Component {
 
             //     })
             // }
-            const response = await fetch("http://10.0.2.2:4000/register/hospital", {
+            const response = await fetch("http://localhost:4000/register/hospital", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -301,8 +300,7 @@ class Authentication extends Component {
                             }} type={"number"} inputRef={this.phoneno} label="Phone No"
                                           value={this.state.phone_no}
                                           onChange={event => this.setState({phone_no: event.target.value})}
-                                          error={(RegExp("^(0/91)?[7-9][0-9]{9}$$")).test(this.state.phone_no)}
-                                          helperText={(RegExp("^(0/91)?[7-9][0-9]{9}$")).test(this.state.phone_no) ? '' : 'Enter Correct Phone No'}
+                                          
 
                             />
 
@@ -326,8 +324,7 @@ class Authentication extends Component {
 
                                           value={this.state.email_id}
                                           onChange={event => this.setState({email_id: event.target.value})}
-                                          error={(RegExp("^((\"[\\w-\\s]+\")|([\\w-]+(?:\\.[\\w-]+)*)|(\"[\\w-\\s]+\")([\\w-]+(?:\\.[\\w-]+)*))(@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)|(@\\[?((25[0-5]\\.|2[0-4][0-9]\\.|1[0-9]{2}\\.|[0-9]{1,2}\\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\]?$)")).test(this.state.email_id)}
-                                          helperText={this.state.message_for_email_taken}
+                                          
 
                             />
                             <CssTextField style={{
@@ -341,8 +338,7 @@ class Authentication extends Component {
 
                                           value={this.state.pass_word}
                                           onChange={event => this.setState({pass_word: event.target.value})}
-                                          error={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word)}
-                                          helperText={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word) ? '' : 'Weak Password'}
+                                          
                             />
 
                         </Grid>
