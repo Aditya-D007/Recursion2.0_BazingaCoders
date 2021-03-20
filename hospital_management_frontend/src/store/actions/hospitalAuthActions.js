@@ -47,7 +47,7 @@ export const checkAuthTimeout = expirationTime => {
 export const hospitalAuthLogin = (email_id, password) => {
     return dispatch => {
         dispatch(authStart());
-        fetch('http://127.0.0.1:4000/hospital/login', {
+        fetch('http://127.0.0.1:4000/login/hospital', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
