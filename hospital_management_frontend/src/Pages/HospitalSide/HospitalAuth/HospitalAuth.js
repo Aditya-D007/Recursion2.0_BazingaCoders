@@ -6,8 +6,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {Route, Switch} from "react-router-dom";
-import PatientRegister from "../../PatientSide/PatientAuth/Register/authenticate";
-import PatientLogin from "../../PatientSide/PatientAuth/Login/authenticate";
+import HospitalRegister from "./Register/authenticate";
+import HospitalLogin from "./Login/authenticate";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -66,11 +66,11 @@ export default function SimpleTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                <PatientRegister/>
+                <HospitalRegister/>
 
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <PatientLogin/>
+                <HospitalLogin/>
             </TabPanel>
 
         </div>

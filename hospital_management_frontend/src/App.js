@@ -25,10 +25,10 @@ class App extends Component {
                         <Route path="/patient/home" component={PatientHomepage}/>
                         <Route path="/patient/register" component={PatientRegister}/>
                         <Route path="/patient/login" component={PatientLogin}/>
-                        <Route path="/patient/auth"component={HospitalAuth}/>
+                        <Route path="/patient/auth"component={PatientAuth}/>
 
                         <Route path="/hospital/home" component={HospitalHomepage}/>
-                        <Route path="/hospital/auth"component={PatientAuth}/>
+                        <Route path="/hospital/auth"component={HospitalAuth}/>
                         <Route path="/hospital/register" component={PatientRegister}/>
                         <Route path="/hospital/login" component={PatientLogin}/>
 

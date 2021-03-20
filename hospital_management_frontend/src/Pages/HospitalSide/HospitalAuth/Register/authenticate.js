@@ -16,6 +16,12 @@ import {ThemeProvider} from "@material-ui/styles";
 import Modal from 'react-modal';
 import CloseIcon from '@material-ui/icons/Close';
 
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from 'react-places-autocomplete';
+
+
 const materialTheme = createMuiTheme({
     palette: {
         primary: {
@@ -118,16 +124,17 @@ class Authentication extends Component {
         super(props);
         this.emailEl = React.createRef();
         this.passwordEl = React.createRef();
-        this.firstName = React.createRef();
-        this.lastName = React.createRef();
+        this.hospitalName = React.createRef();
+        this.hospitalAddress = React.createRef();
         this.username = React.createRef();
         this.phoneno = React.createRef();
+        this.state = { address: '' };
     }
 
     state = {
         isLogin: false,
-        first_name: "",
-        last_name: "",
+        hospital_name: "",
+        address: "",
         phone_no: "",
         email_id: "",
         pass_word: "1234",
@@ -151,12 +158,23 @@ class Authentication extends Component {
         )
     }
 
+    handleChange = address => {
+        this.setState({ address });
+    };
+
+    handleSelect = address => {
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+    };
+
     submitHandler = async (event) => {
 
         event.preventDefault();
         const email = this.emailEl.current.value;
-        const firstname = this.firstName.current.value;
-        const lastname = this.lastName.current.value;
+        const firstname = this.hospital_name.current.value;
+        const lastname = this.hospital_address.current.value;
         // const password1 = this.passworld1.current.value;
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
@@ -231,22 +249,23 @@ class Authentication extends Component {
                                 marginTop: "5px",
                                 fontFamily: "'Montserrat', sans-serif",
 
-                            }} inputRef={this.firstName}
-                                          value={this.state.first_name}
-                                          onChange={event => this.setState({first_name: event.target.value})}
-                                          error={(RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")).test(this.state.first_name)}
-                                          helperText={(RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")).test(this.state.first_name) ? '' : 'Enter Correct First Name'}
-                                          label="First Name"/>
+                            }} inputRef={this.hospitalName}
+                                          value={this.state.hospital_name}
+                                          onChange={event => this.setState({hospital_name: event.target.value})}
+
+                                          label="Hospital Name"/>
                             <CssTextField style={{
                                 width: "40%",
-                                marginTop: "5px",
+                                marginTop: "10px",
                                 fontFamily: "'Montserrat', sans-serif",
-                            }} inputRef={this.lastName} label="Last Name"
-                                          value={this.state.last_name}
-                                          onChange={event => this.setState({last_name: event.target.value})}
-                                          error={(RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")).test(this.state.last_name)}
-                                          helperText={(RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")).test(this.state.last_name) ? '' : 'Enter Correct Last Name'}
+                            }} type={"number"} inputRef={this.phoneno} label="Phone No"
+                                          value={this.state.phone_no}
+                                          onChange={event => this.setState({phone_no: event.target.value})}
+                                          error={(RegExp("^(0/91)?[7-9][0-9]{9}$$")).test(this.state.phone_no)}
+                                          helperText={(RegExp("^(0/91)?[7-9][0-9]{9}$")).test(this.state.phone_no) ? '' : 'Enter Correct Phone No'}
+
                             />
+
                         </Grid>
                         <Grid
                             container
@@ -285,6 +304,7 @@ class Authentication extends Component {
                                           error={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word)}
                                           helperText={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word) ? '' : 'Weak Password'}
                             />
+
                         </Grid>
                         <Grid
                             container
@@ -297,56 +317,49 @@ class Authentication extends Component {
                             }}
 
                         >
-                            <CssTextField style={{
-                                width: "40%",
-                                marginTop: "10px",
-                                fontFamily: "'Montserrat', sans-serif",
-                            }} type={"number"} inputRef={this.phoneno} label="Phone No"
-                                          value={this.state.phone_no}
-                                          onChange={event => this.setState({phone_no: event.target.value})}
-                                          error={(RegExp("^(0/91)?[7-9][0-9]{9}$$")).test(this.state.phone_no)}
-                                          helperText={(RegExp("^(0/91)?[7-9][0-9]{9}$")).test(this.state.phone_no) ? '' : 'Enter Correct Phone No'}
-
-                            />
-                            <ThemeProvider theme={materialTheme}>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <DatePicker
-                                        disableFuture
-                                        openTo="year"
-                                        format="dd/MM/yyyy"
-                                        label="Date of birth"
-                                        views={["year", "month", "date"]}
-                                        value={this.state.date}
-                                        onChange={date => this.setState({date: date})} style={{
-                                        width: "40%",
-                                        marginTop: "15px",
-                                        color: "white",
-                                        fontFamily: "'Montserrat', sans-serif",
-                                    }}
-                                    />
-                                </MuiPickersUtilsProvider>
-                            </ThemeProvider>
-                            <RadioGroup aria-label="gender" name="gender1" value={this.state.gender}
-                                        onChange={event => this.setState({gender: event.target.value})}>
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="center"
 
 
-                                >
-                                    <Typography variant="h6" component="h6" style={{
-                                        marginRight: "20px",
-                                        color: "#fff3e6"
-                                    }}>
-                                        Gender
-                                    </Typography>
-                                    <FormControlLabel value="female" control={<CustomRadioButton/>} label="Female"/>
-                                    <FormControlLabel value="male" control={<CustomRadioButton/>} label="Male"/>
-                                    <FormControlLabel value="other" control={<CustomRadioButton/>} label="Other"/>
-                                </Grid>
-                            </RadioGroup>
+                            <PlacesAutocomplete
+                                value={this.state.address}
+                                onChange={this.handleChange}
+                                onSelect={this.handleSelect}
+                            >
+                                {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
+                                    <div>
+                                        <CssTextField style={{
+                                            width: "100%",
+                                            marginTop: "5px",
+                                            fontFamily: "'Montserrat', sans-serif",
+                                        }} {...getInputProps({
+                                            placeholder: 'Hospital Address ...',
+                                            className: 'location-search-input',
+                                        })}
+                                        />
+                                        <div className="autocomplete-dropdown-container">
+                                            {loading && <div>Loading...</div>}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? 'suggestion-item--active'
+                                                    : 'suggestion-item';
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? {backgroundColor: '#fafafa', cursor: 'pointer'}
+                                                    : {backgroundColor: '#ffffff', cursor: 'pointer'};
+                                                return (
+                                                    <div
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}
+                                                    >
+                                                        <span>{suggestion.description}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
                         </Grid>
                         <Grid
                             container

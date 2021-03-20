@@ -93,7 +93,7 @@ class Login extends Component {
                                     // marginBottom:"-50px",
                                     fontFamily: "'Montserrat', sans-serif",
                                 }}>
-                                    Welcome Back
+                                    Login with Hospital Details
 
                                 </h1>
                             </Grid>
