@@ -54,20 +54,18 @@ export const hospitalAuthLogin = (email_id, password) => {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
-                email: email_id,
-                password: password
+                hospitalId: email_id,
+                hospitalPassword: password
             })
         })
             .then(resp => resp.json())
             .then(data => {
                 console.log(data)
-                const token = data.tokens[0].token;
-                const user_id = data._id;
-                const user_type = "hospital";
+                const token = data.token;
+                const user_id = data.userId;
+                const user_type = "Hospital";
                 const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-                console.log("AUTH LOGIN DATA PRINTING", token,"\n",
 
-                expirationDate)
                 localStorage.setItem('token', token);
                 localStorage.setItem('user_id', user_id);
                 localStorage.setItem('user_type', user_type);
@@ -86,25 +84,27 @@ export const hospitalAuthLogin = (email_id, password) => {
     };
 }
 
-export const hospitalAuthSignup = (first_name, last_name, email_id, password, date, phone_no, gender) => {
+export const hospitalAuthSignup = (hospitalName, email, Phone, password,hospitalAddress, clinic_coordinates) => {
     return dispatch => {
         dispatch(authStart());
-        const dataReceivedAfterSubmitting = fetch('http://127.0.0.1:4000/hospital/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+        const dataReceivedAfterSubmitting = fetch("http://localhost:4000/register/hospital", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "hospitalName": hospitalName,
+                    "hospitalId": email,
+                    "hospitalPhone": Phone,
+                    "hospitalPassword": password,
+                    "hospitalAddress": String(hospitalAddress),
+                    "hospitalCoordinates": {
+                        "type":"Point",
+                        "coordinates":clinic_coordinates,
+                    }
+                }),
             },
-            body: JSON.stringify({
-                firstName: first_name,
-                lastName: last_name,
-                email: email_id,
-                password: password,
-                birth_date: date,
-                phoneNo: phone_no,
-                gender: gender,
-            })
-        })
+        )
             .then(resp => resp.json())
             .then(data => {
                 console.log(data)

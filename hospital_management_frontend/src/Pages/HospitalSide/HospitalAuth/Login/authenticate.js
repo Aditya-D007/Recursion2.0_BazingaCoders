@@ -105,10 +105,7 @@ class Login extends Component {
 
                                           value={this.state.email_id}
                                           onChange={event => this.setState({email_id: event.target.value})}
-                                          error={(RegExp("^((\"[\\w-\\s]+\")|([\\w-]+(?:\\.[\\w-]+)*)|(\"[\\w-\\s]+\")([\\w-]+(?:\\.[\\w-]+)*))(@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)|(@\\[?((25[0-5]\\.|2[0-4][0-9]\\.|1[0-9]{2}\\.|[0-9]{1,2}\\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\]?$)")).test(this.state.email_id)}
-                                          helperText={(RegExp("^((\"[\\w-\\s]+\")|([\\w-]+(?:\\.[\\w-]+)*)|(\"[\\w-\\s]+\")([\\w-]+(?:\\.[\\w-]+)*))(@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)|(@\\[?((25[0-5]\\.|2[0-4][0-9]\\.|1[0-9]{2}\\.|[0-9]{1,2}\\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\]?$)")).test(this.state.email_id) ? '' : 'Enter Correct Email'}
-
-                            />
+                             />
                             <CssTextField style={{
                                 width: "100%",
                                 marginTop: "10px",
@@ -120,8 +117,6 @@ class Login extends Component {
 
                                           value={this.state.pass_word}
                                           onChange={event => this.setState({pass_word: event.target.value})}
-                                          error={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word)}
-                                          helperText={(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,10}$")).test(this.state.pass_word) ? '' : 'Weak Password'}
                             />
                             <Grid
                                 container
@@ -149,9 +144,10 @@ const mapStateToProps = state => {
 
     return {
         isAuthenticated: state.hospitalReducer.token !== null,
-        isAdmin: state.admin_priority,
-        loading: state.loading,
-        error: state.error
+        user_type: state.hospitalReducer.user_type,
+        user_id: state.hospitalReducer.user_id,
+        loading: state.hospitalReducer.loading,
+        error: state.hospitalReducer.error
     }
 }
 

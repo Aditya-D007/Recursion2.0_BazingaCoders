@@ -2,17 +2,10 @@ import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import CssTextField from "../../../../Components/TextField/TextField";
 import ColorButton from "../../../../Components/Button/Button";
-import Typography from '@material-ui/core/Typography';
 import RegisterCss from './auth.module.css'
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CustomRadioButton from "../../../../Components/RadioButton/RadioButton";
-import * as actions from "../../../../store/actions/patientAuthActions";
+import * as actions from "../../../../store/actions/hospitalAuthActions";
 import {connect} from "react-redux";
-import DateFnsUtils from '@date-io/date-fns';
-import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import {createMuiTheme} from "@material-ui/core";
-import {ThemeProvider} from "@material-ui/styles";
 import Modal from 'react-modal';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -164,10 +157,10 @@ class Authentication extends Component {
         this.setState({ address });
 
     };
-    
+
 
     handleSelect = address => {
-        
+
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
             .then(latLng => { this.setState({
@@ -175,11 +168,11 @@ class Authentication extends Component {
                 longitude:latLng.lng
             })})
             .catch(error => console.error('Error', error));
-        
+
     };
 
     submitHandler = async(event) => {
-        
+
         event.preventDefault();
         const email = this.emailEl.current.value;
         const hospitalName = this.hospitalName.current.value;
@@ -195,23 +188,24 @@ class Authentication extends Component {
         // const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
         console.log(email, hospitalName, hospitalAddress, password, Phone)
         if (email && hospitalName && hospitalAddress && password && Phone !== "") {
-            // const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
-            //     return data
-            // });
-            // console.log("SUBMITTED DATA", Submitted);
+            const Submitted = await this.props.onSubmitToRegister(hospitalName, email, Phone, password,String(hospitalAddress), clinic_coordinates)
+                .then(data => {
+                return data
+            });
+            console.log("SUBMITTED DATA", Submitted);
 
 
-            // if (Submitted.ERROR) {
+            if (Submitted.ERROR) {
 
-            //     this.setState({message_for_email_taken: Submitted.ERROR})
-            //     return;
-            // }
-            // if(Submitted.STATUS) {
-            //     this.setState({
-            //         modal: true,
+                this.setState({message_for_email_taken: Submitted.ERROR})
+                return;
+            }
+            if(Submitted.STATUS) {
+                this.setState({
+                    modal: true,
 
-            //     })
-            // }
+                })
+            }
             const response = await fetch("http://localhost:4000/register/hospital", {
                 method: "POST",
                 headers: {
@@ -230,8 +224,8 @@ class Authentication extends Component {
                 }),
               },
             );
-        
-        
+
+
             const resData = await response.json();
             console.log(resData.errorMessage);
             if (resData.errorMessage !== undefined) {
@@ -300,7 +294,7 @@ class Authentication extends Component {
                             }} type={"number"} inputRef={this.phoneno} label="Phone No"
                                           value={this.state.phone_no}
                                           onChange={event => this.setState({phone_no: event.target.value})}
-                                          
+
 
                             />
 
@@ -324,7 +318,7 @@ class Authentication extends Component {
 
                                           value={this.state.email_id}
                                           onChange={event => this.setState({email_id: event.target.value})}
-                                          
+
 
                             />
                             <CssTextField style={{
@@ -338,7 +332,7 @@ class Authentication extends Component {
 
                                           value={this.state.pass_word}
                                           onChange={event => this.setState({pass_word: event.target.value})}
-                                          
+
                             />
 
                         </Grid>
@@ -440,20 +434,20 @@ class Authentication extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//
-//     return {
-//         isAuthenticated: state.token !== null,
-//         isAdmin: state.admin_priority,
-//         loading: state.loading,
-//         error: state.error
-//     }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onSubmitToRegister: (firstname, lastname, email_id, password, date, phoneno, gender) => dispatch(actions.authSignup(firstname, lastname, email_id, password, date, phoneno, gender))
-//     }
-// }
-export default (Authentication);
-// export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
+const mapStateToProps = state => {
+
+    return {
+        isAuthenticated: state.token !== null,
+        isAdmin: state.admin_priority,
+        loading: state.loading,
+        error: state.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSubmitToRegister:(hospitalName, email, Phone, password,hospitalAddress, clinic_coordinates) => dispatch(actions.hospitalAuthSignup(hospitalName, email, Phone, password,hospitalAddress, clinic_coordinates))
+    }
+}
+// export default (Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
