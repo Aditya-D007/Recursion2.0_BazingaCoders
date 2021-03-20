@@ -187,14 +187,13 @@ class Authentication extends Component {
         // const password1 = this.passworld1.current.value;
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
-        const Gender = this.state.gender;
         const birth_date = this.state.date;
         const clinic_coordinates = [
             this.state.longitude,
             this.state.latitude,
           ];
         // const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
-        console.log(email, hospitalName, hospitalAddress, password, Phone, Gender)
+        console.log(email, hospitalName, hospitalAddress, password, Phone)
         if (email && hospitalName && hospitalAddress && password && Phone !== "") {
             // const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
             //     return data

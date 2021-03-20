@@ -11,6 +11,7 @@ exports.registerhospital = (req, res, next) => {
     //     error.data = errors.array();
     //     throw error;
     // }
+    console.log(req.body)
     const hospitalName = req.body.hospitalName;
     const hospitalId = req.body.hospitalId;
     const hospitalPassword = req.body.hospitalPassword;
