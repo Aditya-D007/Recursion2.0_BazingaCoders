@@ -5,7 +5,7 @@ const express = require('express');
 const hospitalRoute = require('./src/route/hospitalRoute');
 const patientRoute = require('./src/route/patientRoute');
 
-const MONGO_DB_URI = "mongodb+srv://reuben:reuben@mongodb.syifj.mongodb.net/vaccine_locator?retryWrites=true&w=majority"
+const MONGO_DB_URI = "mongodb+srv://reuben:reuben@mongodb.syifj.mongodb.net/EmptyBeds?retryWrites=true&w=majority"
 
 
 
