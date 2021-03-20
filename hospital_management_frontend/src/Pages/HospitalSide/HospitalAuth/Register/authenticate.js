@@ -213,31 +213,32 @@ class Authentication extends Component {
 
             //     })
             // }
-            // const response = await fetch("http://10.0.2.2:4000/register/hospital", {
-            //     method: "POST",
-            //     headers: {
-            //       "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({
-            //       "hospitalName": clinicName,
-            //       "hospitalId": phoneNo,
-            //       "hospitalPassword": password,
-            //       "hospitalAddress": String(address_string),
-            //       "hospitalCoordinates": {
-            //         "type":"Point",
-            //         "coordinates":clinic_coordinates,
-            //       }
-            //     }),
-            //   },
-            // );
+            const response = await fetch("http://10.0.2.2:4000/register/hospital", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  "hospitalName": hospitalName,
+                  "hospitalId": email,
+                  "hospitalPhone": Phone,
+                  "hospitalPassword": password,
+                  "hospitalAddress": String(hospitalAddress),
+                  "hospitalCoordinates": {
+                    "type":"Point",
+                    "coordinates":clinic_coordinates,
+                  }
+                }),
+              },
+            );
         
         
-        //     const resData = await response.json();
-        //     console.log(resData.errorMessage);
-        //     if (resData.errorMessage !== undefined) {
-        //       return resData.errorMessage;
-        //     }
-        //     return resData
+            const resData = await response.json();
+            console.log(resData.errorMessage);
+            if (resData.errorMessage !== undefined) {
+              return resData.errorMessage;
+            }
+            return resData
         }
 
 
