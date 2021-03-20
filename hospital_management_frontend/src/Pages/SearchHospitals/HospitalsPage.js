@@ -1,51 +1,51 @@
 import React, {Component} from "react";
-import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
-import CssTextField from "../../Components/TextField/TextField";
-import Grid from "@material-ui/core/Grid";
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng,
-} from 'react-places-autocomplete';
-// import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import GoogleMapsComponent from "../../Components/GoogleMapsComponent/GoogleMapsComponent";
+import { Marker } from '@react-google-maps/api';
 
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import GoogleMapsComponent from "../../Components/GoogleMapsComponent/GoogleMapsComponent";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { geocodeByAddress , getLatLng} from 'react-google-places-autocomplete';
+const containerStyle = {
+    width: '400px',
+    height: '400px'
+};
 
 const center = {
-    lat: 19.213561520048078,
-    lng: 72.85285884065537
-};
+    lat: 0,
+    lng: -180
+}
+
 
 
 class HospitalsPage extends Component {
     state = {
         address: null,
-        latitude:null,
-        longitude:null
+        lat:null,
+        lng:null,
+        position :{
+            lat: 37.772,
+            lng: -122.214
+        }
     };
 
     handleChange = address => {
+        console.log("This Address",address)
+
+        geocodeByAddress(address.label)
+            .then(results => getLatLng(results[0]))
+            .then(({ lat, lng }) =>{
+                    this.setState({ lat:lat,
+                        lng:lng})
+                    console.log('Successfully got latitude and longitude', { lat, lng })
+            });
         this.setState({address});
     };
 
-    handleSelect = address => {
-        geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                this.setState({
-                    latitude:latLng.lat,
-                    longitude:latLng.lng
-                })
-                console.log('Success', latLng)
-            })
-            .catch(error => console.error('Error', error));
-    };
+
 
     render() {
         return (<>
@@ -66,53 +66,17 @@ class HospitalsPage extends Component {
                             <SearchIcon/>
                         </IconButton>
 
-                        <PlacesAutocomplete
-                            value={this.state.address}
-                            onChange={this.handleChange}
-                            onSelect={this.handleSelect}
-                        >
-                            {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
-                                <>
-                                    <InputBase
-                                        value={this.state.address}
-                                        className={{
-                                            marginLeft: "5px",
-                                            flexGrow: 1,
-                                        }}
+                        <GooglePlacesAutocomplete
+                            apiKey="AIzaSyBRQW7pWPvMmdYbj3Mc_4YVA1tt8k4oIpY"
+                            selectProps={{
 
-                                        {...getInputProps({
-                                            placeholder: 'Search Google Maps ...',
-                                            className: 'location-search-input',
-                                        })}
-                                    />
-                                    <div className="autocomplete-dropdown-container">
-                                        {loading && <div>Loading...</div>}
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            // inline style for demonstration purpose
-                                            const style = suggestion.active
-                                                ? {backgroundColor: '#fafafa', cursor: 'pointer'}
-                                                : {backgroundColor: '#ffffff', cursor: 'pointer'};
-                                            return (
-                                                <div
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style,
-                                                    })}
-                                                >
-                                                    <span>{suggestion.description}</span>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </>
-                            )}
-                        </PlacesAutocomplete>
+                                onChange:this.handleChange ,
+                            }}
+                        />
                     </Paper>
                 </div>
-               <GoogleMapsComponent latitude={this.state.latitude} longitude={this.state.longitude}/>
+
+               <GoogleMapsComponent latitude={this.state.lat} longitude={this.state.lng}/>
             </>
         );
     }

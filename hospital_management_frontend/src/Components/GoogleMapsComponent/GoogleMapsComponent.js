@@ -14,9 +14,11 @@ export class MapContainer extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log("Latitude",this.props.latitude)
-    // }
+
+    componentDidMount() {
+        console.log("Latitude",this.props.latitude,this.props.longitude)
+    }
+
 
 
     render() {
@@ -26,7 +28,7 @@ export class MapContainer extends Component {
 
             <Map
             google={this.props.google}
-            zoom={13}
+            zoom={10}
             style={{
                 width: '100%',
                 height: '50%',
