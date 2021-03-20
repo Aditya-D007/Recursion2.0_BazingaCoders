@@ -9,6 +9,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import * as actions from '../../../../store/actions/patientAuthActions'
 import {ListItem} from "@material-ui/core";
 import {connect} from "react-redux";
+import Modal from "react-modal";
+import CloseIcon from "@material-ui/icons/Close";
 
 
 class Login extends Component {
@@ -23,7 +25,7 @@ class Login extends Component {
         isLogin: false,
         phone_no: null,
         email_id: "reuben211999@gmail.com",
-        pass_word: "1234",
+        pass_word: "Reuben@21",
         message_for_username_taken: ""
 
     };
@@ -130,7 +132,30 @@ class Login extends Component {
 
                     </Grid>
                 }
+                <div>
 
+                    <Modal
+                        isOpen={this.state.modal}
+                        onRequestClose={this.closeModal}
+                        className="Modal"
+                        ariaHideApp={false}
+                        style={{
+                            backgroundColor: "transparent"
+                        }}
+                    >
+
+
+                        <CloseIcon onClick={this.closeModal}/>
+                        <div className="ModalDiv">
+
+                            <p>
+                                Registration Successfull
+                            </p>
+
+                        </div>
+
+                    </Modal>
+                </div>
 
             </>
         );
@@ -138,20 +163,20 @@ class Login extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//
-//     return {
-//         isAuthenticated: state.token !== null,
-//         isAdmin: state.admin_priority,
-//         loading: state.loading,
-//         error: state.error
-//     }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onAuth: (email_id, password) => dispatch(actions.authLogin(email_id, password))
-//     }
-// }
-export default (Login);
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const mapStateToProps = state => {
+
+    return {
+        isAuthenticated:state.patientReducer.token !== null,
+        isAdmin:state.patientReducer.admin_priority,
+        loading:state.patientReducer.loading,
+        error:state.patientReducer.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email_id, password) => dispatch(actions.patientAuthLogin(email_id, password))
+    }
+}
+// export default (Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -4,14 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import reducer from "./store/reducers/auth";
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, compose, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhances(
+var rootReducer = combineReducers({
+    patientReducer:reducer
+
+})
+
+
+const store = createStore(rootReducer, composeEnhances(
     applyMiddleware(thunk)
 ));
 

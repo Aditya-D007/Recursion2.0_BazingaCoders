@@ -130,7 +130,7 @@ class Authentication extends Component {
         last_name: "Coutinho",
         phone_no: "7021597154",
         email_id: "reuben211999@gmail.com",
-        pass_word: "1234",
+        pass_word: "Reuben@21",
         date: new Date(),
         gender: "male",
         message_for_email_taken: 'Enter Correct Email',
@@ -174,12 +174,12 @@ class Authentication extends Component {
             });
             console.log("SUBMITTED DATA", Submitted);
 
-            if (Submitted.ERROR) {
+            if (Submitted.errorMessage) {
 
-                this.setState({message_for_email_taken: Submitted.ERROR})
+                this.setState({message_for_email_taken: Submitted.errorMessage})
                 return;
             }
-            if(Submitted.STATUS) {
+            if(Submitted.token) {
                 this.setState({
                     modal: true,
 
@@ -410,5 +410,5 @@ const mapDispatchToProps = dispatch => {
         onSubmitToRegister: (firstname, lastname, email_id, password, date, phoneno, gender) => dispatch(actions.patientAuthSignup(firstname, lastname, email_id, password, date, phoneno, gender))
     }
 }
-export default (Authentication);
-// export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
+// export default (Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

@@ -15,16 +15,16 @@ router.post("/patient/register", [
         .withMessage('Enter A Proper Lastname').trim(),
     check('phoneNo')
         .isLength({ min: 10, max:12 })
-        .withMessage('Enter A Proper PhoneNo').trim()
-        .custom((value, { req }) => {
-
-            const result = validatePhoneNumber.validate();
-            console.log(result)
-            if (!result) {
-                return Promise.reject("Invalid phone no.")
-            }
-
-        }),
+        .withMessage('Enter A Proper PhoneNo').trim(),
+        // .custom((value, { req }) => {
+        //
+        //     const result = validatePhoneNumber.validate();
+        //     console.log(result)
+        //     if (!result) {
+        //         return Promise.reject("Invalid phone no.")
+        //     }
+        //
+        // }),
     check('email')
         .isEmail()
         .normalizeEmail()

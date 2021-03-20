@@ -5,9 +5,9 @@ const initialState = {
     token: null,
     error: null,
     loading: false,
-    admin_priority: false,
-    subscriber_priority: false,
-    journalist_priority: false
+    user_type: null,
+    user_id:null
+
 
 }
 
@@ -21,9 +21,8 @@ const authStart = (state, action) => {
 const authSuccess = (state, action) => {
     return updateObject(state, {
         token: action.token,
-        admin_priority: action.admin_priority,
-        subscriber_priority: action.subscriber_priority,
-        journalist_priority: action.journalist_priority,
+        user_type: action.user_type,
+        user_id: action.user_id,
         error: null,
         loading: false,
     });

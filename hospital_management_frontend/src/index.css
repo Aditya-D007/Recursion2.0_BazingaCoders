@@ -12,3 +12,49 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.Modal {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-right: -50% !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: #1a508b !important;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  outline: none;
+  color: #fff3e6;
+}
+
+.ModalDiv {
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url("https://myawsbucketreuben.s3.ap-south-1.amazonaws.com/portfolio/stars.svg");
+  background-size:cover;
+
+}
+
+
+.ModalImage {
+  width: 200px;
+  height: 200px;
+
+}
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1a508b !important;
+}

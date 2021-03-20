@@ -90,27 +90,18 @@ class Navbar extends Component {
                         alignItems="center"
                     >
 
-                        {this.props.isSubscriber && (<ColorButton color="inherit" style={{
+                        {this.props.user_type === 'Patient' && (<ColorButton color="inherit" style={{
                             width: "200px",
 
-                        }}>Search News</ColorButton>)}
+                        }}>Patient Details</ColorButton>)}
 
-                        {this.props.isJournalist && (<ColorButton color="inherit" style={{
+                        {this.props.user_type === 'Hospital' && (<ColorButton color="inherit" style={{
                             width: "200px",
 
-                        }}>Previous Posts</ColorButton>)}
+                        }}>Allot Bed Slots</ColorButton>)}
 
 
-                        {this.props.isJournalist && (<ColorButton component={NavLink} to={"/post/article"} color="inherit" style={{
-                            width: "200px",
 
-                        }}>Post Article</ColorButton>)}
-
-
-                        {this.props.isAdmin && (<ColorButton color="inherit" style={{
-                            width: "200px",
-
-                        }}>  Users</ColorButton>)}
 
 
 
@@ -294,24 +285,24 @@ class Navbar extends Component {
 //     }
 // }
 
-// const mapStateToProps = state => {
-//
-//     return {
-//         isAuthenticated: state.token !== null,
-//         isAdmin: state.admin_priority,
-//         isJournalist:state.journalist_priority,
-//         isSubscriber:state.subscriber_priority
-//
-//     }
-// }
-//
-//
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onTryAutoSignUp: () => dispatch(actions.authCheckState()),
-//         logout: () => dispatch(actions.logout())
-//     }
-// }
-export default (Navbar);
-// export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+const mapStateToProps = state => {
+
+    return {
+        isAuthenticated: state.patientReducer.token !== null,
+        isAdmin: state.patientReducer.admin_priority,
+        user_type:state.patientReducer.user_type,
+        user_id:state.patientReducer.user_id
+
+    }
+}
+
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onTryAutoSignUp: () => dispatch(actions.authCheckState()),
+        logout: () => dispatch(actions.logout())
+    }
+}
+// export default (Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

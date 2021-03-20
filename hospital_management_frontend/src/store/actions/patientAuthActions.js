@@ -6,13 +6,12 @@ export const authStart = () => {
     };
 }
 
-export const authSuccess = (token, admin_priority, subscriber_priority, journalist_priority) => {
+export const authSuccess = (token, user_type,user_id) => {
     return {
         type: actionTypes.PATIENT_AUTH_SUCCESS,
         token: token,
-        admin_priority: admin_priority,
-        subscriber_priority: subscriber_priority,
-        journalist_priority: journalist_priority
+        user_type: user_type,
+        user_id: user_id,
 
     };
 }
@@ -29,11 +28,8 @@ export const authFail = (error) => {
 export const logout = () => {
     // console.log("ENTERED ACTIONS?AUTH JS LOGOUT")
     localStorage.removeItem('token');
-    localStorage.removeItem('admin_priority');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('subscriber_priority');
-    localStorage.removeItem('journalist_priority');
-    localStorage.removeItem('profile_picture');
+    localStorage.removeItem('user_type');
+    localStorage.removeItem('user_id');
     return {
         type: actionTypes.PATIENT_AUTH_LOGOUT,
     }
@@ -51,40 +47,33 @@ export const checkAuthTimeout = expirationTime => {
 export const patientAuthLogin = (email_id, password) => {
     return dispatch => {
         dispatch(authStart());
-        fetch('http://127.0.0.1:4000/patient/register', {
+        fetch('http://127.0.0.1:4000/patient/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
-                email_id: email_id,
+                email: email_id,
                 password: password
             })
         })
             .then(resp => resp.json())
             .then(data => {
                 console.log(data)
-                const token = data.jwt_token;
-                const admin_priority = data.admin_access;
-                const subscriber_priority = data.suscriber_access;
-                const journalist_priority = data.journal_access;
-                const profile_picture = data.profile_picture;
+                const token = data.tokens[0].token;
+                const user_id = data._id;
+                const user_type = "Patient";
                 const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
                 console.log("AUTH LOGIN DATA PRINTING", token,"\n",
-                admin_priority,"\n",
-                subscriber_priority,"\n",
-                journalist_priority,"\n",
-                profile_picture,"\n",
+
                 expirationDate)
                 localStorage.setItem('token', token);
-                localStorage.setItem('email_id', email_id);
-                localStorage.setItem('admin_priority', admin_priority);
+                localStorage.setItem('user_id', user_id);
+                localStorage.setItem('user_type', user_type);
+
                 localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('subscriber_priority', subscriber_priority);
-                localStorage.setItem('journalist_priority', journalist_priority);
-                localStorage.setItem('profile_picture', profile_picture);
-                dispatch(authSuccess(token, admin_priority, subscriber_priority, journalist_priority))
+                 dispatch(authSuccess(token,user_type,user_id ))
                 dispatch(checkAuthTimeout(3600));
 
             })
@@ -100,7 +89,7 @@ export const patientAuthLogin = (email_id, password) => {
 export const patientAuthSignup = (first_name, last_name, email_id, password, date, phone_no, gender) => {
     return dispatch => {
         dispatch(authStart());
-        const dataReceivedAfterSubmitting = fetch('http://127.0.0.1:8000/patient/register', {
+        const dataReceivedAfterSubmitting = fetch('http://127.0.0.1:4000/patient/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -111,7 +100,7 @@ export const patientAuthSignup = (first_name, last_name, email_id, password, dat
                 lastName: last_name,
                 email: email_id,
                 password: password,
-                date: date,
+                birth_date: date,
                 phoneNo: phone_no,
                 gender: gender,
             })
@@ -159,24 +148,4 @@ export const authCheckState = () => {
 }
 
 
-export const fetchWorldNews = () => {
-    return dispatch => {
-        return fetch('http://127.0.0.1:8000/world-grid/world/', {
-            method: 'GET',
-            // headers: {
-            //     'Content-Type': 'application/json'
-            //     // 'Content-Type': 'application/x-www-form-urlencoded',
-            // },
-        })
-            .then(resp => resp.json())
-            .then(data => {
-                console.log(data)
-                return data;
-            }).catch((error) => {
-                return error;
-            })
 
-
-
-    };
-}

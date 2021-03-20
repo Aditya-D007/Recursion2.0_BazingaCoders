@@ -8,11 +8,11 @@ exports.signUp = async (req, res) => {
     lastName = req.body.lastName;
     Email = req.body.email;
     password = req.body.password;
-    date = req.body.date;
+    date = req.body.birth_date;
     phoneNo = req.body.phoneNo;
     gender = req.body.gender;
-
-    const errors = validationResult(req);
+    console.log(req.body)
+    // const errors = validationResult(req);
     if (!errors.isEmpty()) {
 
         return res.status(422).send({
@@ -39,6 +39,7 @@ exports.signIn = async (req, res) => {
         return res.status(422).send({
             errorMessage: errors.array()[0].msg,
         });
+
     }
     try {
         console.log(req.body)
