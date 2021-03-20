@@ -12,7 +12,7 @@ exports.signUp = async (req, res) => {
     phoneNo = req.body.phoneNo;
     gender = req.body.gender;
     console.log(req.body)
-    // const errors = validationResult(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
 
         return res.status(422).send({

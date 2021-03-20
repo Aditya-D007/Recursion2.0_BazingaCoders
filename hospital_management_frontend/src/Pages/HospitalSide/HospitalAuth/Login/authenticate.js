@@ -27,8 +27,8 @@ class Login extends Component {
     state = {
         isLogin: false,
         phone_no: null,
-        email_id: "reuben211999@gmail.com",
-        pass_word: "1234",
+        email_id: "gemhospital@gmail.com",
+        pass_word: "12345678",
         message_for_username_taken: ""
 
     };
