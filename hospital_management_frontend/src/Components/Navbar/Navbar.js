@@ -27,9 +27,8 @@ class Navbar extends Component {
 
     componentDidMount() {
         // this.props.onTryAutoSignUp();
-        // console.log("Printing",this.props.isSubscriber,
-        //     this.props.isJournalist,
-        //     this.props.isAdmin);
+        console.log("Printing",this.props.user_type,
+           );
     }
 
     handleClose = () => {
@@ -288,10 +287,10 @@ class Navbar extends Component {
 const mapStateToProps = state => {
 
     return {
-        isAuthenticated: state.patientReducer.token !== null,
-        isAdmin: state.patientReducer.admin_priority,
-        user_type:state.patientReducer.user_type,
-        user_id:state.patientReducer.user_id
+        isAuthenticated: state.patientReducer.token || state.hospitalReducer.token !== null,
+        isAdmin: state.patientReducer.admin_priority === null ? state.hospitalReducer.token : state.patientReducer.admin_priority,
+        user_type:state.patientReducer.user_type === null ? state.hospitalReducer.user_type : state.patientReducer.user_type,
+        user_id:state.patientReducer.user_id === null ? state.hospitalReducer.user_id : state.patientReducer.user_id,
 
     }
 }
