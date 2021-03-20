@@ -4,6 +4,11 @@ import Draggable from 'react-draggable';
 import { ModalContext } from '../Contexts/ModalProvider';
 
 const Modal = () => {
+  const SourceCode = () => {
+    // var request = request.defaults({jar: true})
+    console.log(document.getElementsByTagName("input").value)
+    // console.log(request)
+  }
   return (
     <ModalContext.Consumer>
       {({ windowPosition, hasDraggedWindowPosition, extensionId, getExtensionId }) => (
@@ -29,7 +34,13 @@ const Modal = () => {
                         onClick={getExtensionId}
                         className="modal-button"
                       >
-                        Get Extension ID
+                      Get Extension ID
+                      </button>
+                      <button
+                      onClick={SourceCode } 
+                        className="modal-button"
+                      >
+                        Get Source Code
                       </button>
                     </div>
                   </div>

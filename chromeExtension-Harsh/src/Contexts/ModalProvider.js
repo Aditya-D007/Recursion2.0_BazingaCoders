@@ -10,6 +10,10 @@ const ModalProvider = ({ children }) => {
   function getExtensionId() {
     window.postMessage({ type: "GET_EXTENSION_ID" }, "*");
   }
+  // function getSourceCode() {
+  //   console.log(document.querySelectorAll)
+  //   window.postMessage({ type: "GET_EXTENSION_ID" }, "*");
+  // }
 
   useEffect(() => {
     // Set up event listeners from Content script
@@ -27,6 +31,7 @@ const ModalProvider = ({ children }) => {
         extensionId,
         getExtensionId,
         windowPosition,
+        // getSourceCode
       }}
     >
       {children}

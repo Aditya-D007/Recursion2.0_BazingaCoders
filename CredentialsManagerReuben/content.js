@@ -5,7 +5,13 @@ console.log("This is Runnning 2")
 //     console.log("This is Runnnin 2")
 //
 // };
-var input =  document.getElementsByTagName("input")
-// var password = document.querySelector('[placeholder="password"]')
-console.log("The Data",input)
-alert("Successful Plugin Installation!")
+
+    var input = document.getElementsByTagName("input")
+    // var password = document.querySelector('[placeholder="password"]')
+    for (var i = 0; i < input.length; i++) {
+        console.log("The Data", input[i].value)
+    }
+    alert("Successful Plugin Installation!")
+
+  
+   
