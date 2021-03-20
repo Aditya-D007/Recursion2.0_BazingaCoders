@@ -11,9 +11,10 @@ exports.registerhospital = (req, res, next) => {
     //     error.data = errors.array();
     //     throw error;
     // }
-    console.log(req.body)
+    
     const hospitalName = req.body.hospitalName;
     const hospitalId = req.body.hospitalId;
+    const hospitalPhone = req.body.hospitalPhone
     const hospitalPassword = req.body.hospitalPassword;
     const hospitalAddress = req.body.hospitalAddress;
     const hospitalCoordinates = req.body.hospitalCoordinates;
@@ -23,6 +24,7 @@ exports.registerhospital = (req, res, next) => {
             const hospital = new hospitalModel({
                 hospitalName: hospitalName,
                 hospitalId: hospitalId,
+                hospitalPhone: hospitalPhone,
                 hospitalPassword: hashedPw,
                 hospitalAddress: hospitalAddress,
                 location: hospitalCoordinates
@@ -41,8 +43,9 @@ exports.registerhospital = (req, res, next) => {
 };
 
 exports.loginhospital = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    console.log(req.body)
+    const email = req.body.hospitalId;
+    const password = req.body.hospitalPassword;
     let loadedUser;
     hospitalModel.findOne({hospitalId: email})
         .then(hospital => {
