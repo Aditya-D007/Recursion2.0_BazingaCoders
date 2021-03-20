@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleTabs() {
-
+    const theme = useTheme();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -63,7 +63,7 @@ export default function SimpleTabs() {
                     <Tab label="Register" style={{
                         padding: 0,
                         fontFamily: "'Montserrat', sans-serif",
-                        fontSize: "20px",
+                        fontSize: "15px",
                         // color: Colors.DARK_GREENISH,
                         // backgroundColor: Colors.WHITE_ISH,
                         // border:"1px solid"+Colors.DARK_GREENISH
@@ -71,18 +71,18 @@ export default function SimpleTabs() {
                     <Tab label="Login" style={{
                         padding: 0,
                         fontFamily: "'Montserrat', sans-serif",
-                        fontSize: "20px",
+                        fontSize: "15px",
                         // color: Colors.DARK_GREENISH,
                         // backgroundColor: Colors.WHITE_ISH,
                         // border:"1px solid"+Colors.DARK_GREENISH
                     }}/>
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} dir={theme.direction}>
                 <HospitalRegister/>
 
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1} dir={theme.direction}>
                 <HospitalLogin/>
             </TabPanel>
 

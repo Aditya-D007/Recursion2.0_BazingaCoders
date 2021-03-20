@@ -46,17 +46,26 @@ const patientSchema = new mongoose.Schema({
             }
         }
     },
-    aadharNo: {
+    // aadharNo: {
+    //     type: String,
+    //     validate(value) {
+    //         if (value == 12) {
+    //             throw new Error('Invalid Aadhar Number')
+    //         }
+    //     }
+    // },
+    birth_date: {
+        type: Date,
+        required: true
+    },
+    gender: {
         type: String,
-        validate(value) {
-            if (value == 12) {
-                throw new Error('Invalid Aadhar Number')
-            }
-        }
+        required: true
     },
     vaccine: {
         type: Boolean,
-        default: false
+        default: false,
+
     },
     tokens: [{
         token: {

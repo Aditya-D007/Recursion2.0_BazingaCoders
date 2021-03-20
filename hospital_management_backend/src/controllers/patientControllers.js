@@ -4,11 +4,13 @@ const {validationResult} = require('express-validator');
 
 
 exports.signUp = async (req, res) => {
-    firstName = req.body.Fname;
-    lastName = req.body.Lname;
-    Email = req.body.Email;
-    password = req.body.Password;
-    phoneNo = req.body.Phoneno;
+    firstName = req.body.firstName;
+    lastName = req.body.lastName;
+    Email = req.body.email;
+    password = req.body.password;
+    date = req.body.date;
+    phoneNo = req.body.phoneNo;
+    gender = req.body.gender;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -55,7 +55,11 @@ export default function SimpleTabs() {
             flexGrow:1,
 
         }} >
-            <AppBar position="static">
+            <AppBar position="static" style={{
+                backgroundColor: "#1a508b",
+                // color: Colors.WHITE_ISH,
+
+            }}>
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Register" style={{
                         backgroundColor:"transparent"

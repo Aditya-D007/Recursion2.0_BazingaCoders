@@ -48,10 +48,10 @@ export const checkAuthTimeout = expirationTime => {
     }
 }
 
-export const authLogin = (email_id, password) => {
+export const patientAuthLogin = (email_id, password) => {
     return dispatch => {
         dispatch(authStart());
-        fetch('http://127.0.0.1:8000/users/login/', {
+        fetch('http://127.0.0.1:4000/patient/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -97,22 +97,22 @@ export const authLogin = (email_id, password) => {
     };
 }
 
-export const authSignup = (first_name, last_name, email_id, password, date, phone_no, gender) => {
+export const patientAuthSignup = (first_name, last_name, email_id, password, date, phone_no, gender) => {
     return dispatch => {
         dispatch(authStart());
-        const dataReceivedAfterSubmitting = fetch('http://127.0.0.1:8000/users/register/', {
+        const dataReceivedAfterSubmitting = fetch('http://127.0.0.1:8000/patient/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
-                firstname: first_name,
-                lastname: last_name,
-                email_id: email_id,
+                firstName: first_name,
+                lastName: last_name,
+                email: email_id,
                 password: password,
                 date: date,
-                phone_no: phone_no,
+                phoneNo: phone_no,
                 gender: gender,
             })
         })

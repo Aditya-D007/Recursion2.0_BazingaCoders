@@ -126,10 +126,10 @@ class Authentication extends Component {
 
     state = {
         isLogin: false,
-        first_name: "",
-        last_name: "",
-        phone_no: "",
-        email_id: "",
+        first_name: "Reuben",
+        last_name: "Coutinho",
+        phone_no: "7021597154",
+        email_id: "reuben211999@gmail.com",
         pass_word: "1234",
         date: new Date(),
         gender: "male",
@@ -161,11 +161,15 @@ class Authentication extends Component {
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
         const Gender = this.state.gender;
-        const birth_date = this.state.date;
-        const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
-        // console.log(email, firstname, lastname, password, Phone, Gender, birth_date.getFullYear() + "-" + birth_date.getMonth() + "-" + birth_date.getDate())
+        const birth_date = this.state.date.toISOString();
+        // const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
+        console.log(email, firstname, lastname, password,
+            Phone, Gender, birth_date
+
+            )
         if (email && firstname && lastname && password && Phone !== "") {
-            const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
+            const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, birth_date, Phone, Gender)
+                .then(data => {
                 return data
             });
             console.log("SUBMITTED DATA", Submitted);
@@ -391,20 +395,20 @@ class Authentication extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//
-//     return {
-//         isAuthenticated: state.token !== null,
-//         isAdmin: state.admin_priority,
-//         loading: state.loading,
-//         error: state.error
-//     }
-// }
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onSubmitToRegister: (firstname, lastname, email_id, password, date, phoneno, gender) => dispatch(actions.authSignup(firstname, lastname, email_id, password, date, phoneno, gender))
-//     }
-// }
+const mapStateToProps = state => {
+
+    return {
+        isAuthenticated: state.token !== null,
+        isAdmin: state.admin_priority,
+        loading: state.loading,
+        error: state.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSubmitToRegister: (firstname, lastname, email_id, password, date, phoneno, gender) => dispatch(actions.patientAuthSignup(firstname, lastname, email_id, password, date, phoneno, gender))
+    }
+}
 export default (Authentication);
 // export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
