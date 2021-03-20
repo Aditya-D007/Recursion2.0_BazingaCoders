@@ -36,6 +36,12 @@ const hospitalSchema = new mongoose.Schema({
         },
         formattedAddress: String
     },
+    numberOfBeds: {
+        type: Number,
+    },
+    numberOfOccupiedBeds: {
+        type: Number,
+    },
     Open: {
         type: Boolean,
         default: true,

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         maxWidth: 345,
         minWidth: 275,
         height:450,
-        backgroundColor:"#1a508b",
+        backgroundColor:"#4682B4",
         margin: 'auto'
     },
     bullet: {

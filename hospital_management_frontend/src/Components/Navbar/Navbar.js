@@ -165,14 +165,14 @@ class Navbar extends Component {
         return (
             <>
                 <AppBar position="static" style={{
-                    backgroundColor: "#1a508b"
+                    backgroundColor: "#4682B4"
                 }}>
                     <Toolbar variant="dense" style={{
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         fontFamily: "'Julius Sans One', sans-serif",
-                        fontSize: "20px",
+                        fontSize: "50px",
                         marginBottom: "-30px",
                         color: "#fff3e6"
                     }}>
