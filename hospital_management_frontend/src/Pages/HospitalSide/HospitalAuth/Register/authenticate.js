@@ -139,6 +139,8 @@ class Authentication extends Component {
         email_id: "",
         pass_word: "1234",
         date: new Date(),
+        latitude: null,
+        longitude: null,
         gender: "male",
         message_for_email_taken: 'Enter Correct Email',
         modal:false
@@ -160,42 +162,83 @@ class Authentication extends Component {
 
     handleChange = address => {
         this.setState({ address });
+
     };
+    
 
     handleSelect = address => {
+        
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
+            .then(latLng => { this.setState({
+                latitude:latLng.lat,
+                longitude:latLng.lng
+            })})
             .catch(error => console.error('Error', error));
+        
     };
 
     submitHandler = async (event) => {
-
+        
         event.preventDefault();
         const email = this.emailEl.current.value;
-        const hospital_name = this.hospital_name.current.value;
-        const address = this.address.current.value;
+        const hospitalName = this.hospitalName.current.value;
+        const hospitalAddress = this.state.address;
         // const password1 = this.passworld1.current.value;
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
-        // console.log(email, firstname, lastname, password, Phone, Gender, birth_date.getFullYear() + "-" + birth_date.getMonth() + "-" + birth_date.getDate())
-        if (email && hospital_name && address && password && Phone !== "") {
-            const Submitted = await this.props.onSubmitToRegister(hospital_name, address, email, password, Phone).then(data => {
-                return data
-            });
-            console.log("SUBMITTED DATA", Submitted);
+        const Gender = this.state.gender;
+        const birth_date = this.state.date;
+        const clinic_coordinates = [
+            this.state.longitude,
+            this.state.latitude,
+          ];
+        // const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
+        console.log(email, hospitalName, hospitalAddress, password, Phone, Gender)
+        if (email && hospitalName && hospitalAddress && password && Phone !== "") {
+            // const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
+            //     return data
+            // });
+            // console.log("SUBMITTED DATA", Submitted);
 
-            if (Submitted.ERROR) {
 
-                this.setState({message_for_email_taken: Submitted.ERROR})
-                return;
+            // if (Submitted.ERROR) {
+
+            //     this.setState({message_for_email_taken: Submitted.ERROR})
+            //     return;
+            // }
+            // if(Submitted.STATUS) {
+            //     this.setState({
+            //         modal: true,
+
+            //     })
+            // }
+            const response = await fetch("http://10.0.2.2:4000/register/hospital", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  "hospitalName": hospitalName,
+                  "hospitalId": email,
+                  "hospitalPhone": Phone,
+                  "hospitalPassword": password,
+                  "hospitalAddress": String(hospitalAddress),
+                  "hospitalCoordinates": {
+                    "type":"Point",
+                    "coordinates":clinic_coordinates,
+                  }
+                }),
+              },
+            );
+        
+        
+            const resData = await response.json();
+            console.log(resData.errorMessage);
+            if (resData.errorMessage !== undefined) {
+              return resData.errorMessage;
             }
-            if(Submitted.STATUS) {
-                this.setState({
-                    modal: true,
-
-                })
-            }
+            return resData
         }
 
 
