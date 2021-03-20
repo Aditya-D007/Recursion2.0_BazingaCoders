@@ -8,7 +8,10 @@ import * as actions from './store/actions/patientAuthActions';
 import PatientLogin from './Pages/PatientSide/PatientAuth/Login/authenticate';
 import PatientRegister from './Pages/PatientSide/PatientAuth/Register/authenticate';
 import HospitalAuth from './Pages/HospitalSide/HospitalAuth/HospitalAuth';
-import PatientAuth from './Pages/PatientSide/PatientAuth/PatientAuth'
+import PatientAuth from './Pages/PatientSide/PatientAuth/PatientAuth';
+
+import HospitalPage from './Pages/SearchHospitals/HospitalsPage';
+
 class App extends Component {
 
     // componentDidMount() {
@@ -27,7 +30,7 @@ class App extends Component {
                         <Route path="/patient/login" component={PatientLogin}/>
                         <Route path="/patient/auth"component={PatientAuth}/>
 
-                        <Route path="/hospital/home" component={HospitalHomepage}/>
+                        <Route path="/hospital/home" component={HospitalPage}/>
                         <Route path="/hospital/auth"component={HospitalAuth}/>
                         <Route path="/hospital/register" component={PatientRegister}/>
                         <Route path="/hospital/login" component={PatientLogin}/>

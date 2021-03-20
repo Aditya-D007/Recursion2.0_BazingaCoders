@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import {Route, Switch} from "react-router-dom";
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import HospitalRegister from "./Register/authenticate";
 import HospitalLogin from "./Login/authenticate";
 
@@ -35,12 +33,13 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.background.paper,
+        width: "100%",
+    },
+}));
 
 export default function SimpleTabs() {
 
@@ -55,13 +54,27 @@ export default function SimpleTabs() {
             flexGrow:1,
 
         }} >
-            <AppBar position="static">
+            <AppBar position="static" style={{
+                backgroundColor: "#1a508b",
+                // color: Colors.WHITE_ISH,
+
+            }}>
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Register" style={{
-                        backgroundColor:"transparent"
+                        padding: 0,
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontSize: "20px",
+                        // color: Colors.DARK_GREENISH,
+                        // backgroundColor: Colors.WHITE_ISH,
+                        // border:"1px solid"+Colors.DARK_GREENISH
                     }}/>
                     <Tab label="Login" style={{
-                        backgroundColor:"transparent"
+                        padding: 0,
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontSize: "20px",
+                        // color: Colors.DARK_GREENISH,
+                        // backgroundColor: Colors.WHITE_ISH,
+                        // border:"1px solid"+Colors.DARK_GREENISH
                     }}/>
                 </Tabs>
             </AppBar>

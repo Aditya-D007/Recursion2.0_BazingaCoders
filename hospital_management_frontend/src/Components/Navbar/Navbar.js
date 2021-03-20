@@ -163,8 +163,8 @@ class Navbar extends Component {
 
 
                         <ColorButton color="inherit" component={NavLink} to={"/patient/home"}>Home</ColorButton>
-                        <ColorButton component={NavLink} to={"/hospitals"} color="inherit">Hospitals</ColorButton>
-                        <ColorButton component={NavLink} to={"/health"} color="inherit">Health</ColorButton>
+                        <ColorButton component={NavLink} to={"/hospital/home"} color="inherit">Hospitals</ColorButton>
+                        <ColorButton component={NavLink} to={"/health"} color="inherit">Vaccination Centers</ColorButton>
 
                     </Grid>
 
@@ -222,8 +222,8 @@ class Navbar extends Component {
                         ))}
                         </span>
                         <span className={css.categories_Css}>
-                        <ColorButton color="inherit" component={NavLink} to={"/home"}>Home</ColorButton>
-                        <ColorButton component={NavLink} to={"/hospitals"} color="inherit">Hospitals</ColorButton>
+                        <ColorButton color="inherit" component={NavLink} to={"/patient/home"}>Home</ColorButton>
+                        <ColorButton component={NavLink} to={"/hospital/home"} color="inherit">Hospitals</ColorButton>
                         <ColorButton component={NavLink} to={"/health"} color="inherit">Health</ColorButton>
 
 

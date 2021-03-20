@@ -173,17 +173,14 @@ class Authentication extends Component {
 
         event.preventDefault();
         const email = this.emailEl.current.value;
-        const firstname = this.hospital_name.current.value;
-        const lastname = this.hospital_address.current.value;
+        const hospital_name = this.hospital_name.current.value;
+        const address = this.address.current.value;
         // const password1 = this.passworld1.current.value;
         const password = this.passwordEl.current.value;
         const Phone = Number(this.phoneno.current.value);
-        const Gender = this.state.gender;
-        const birth_date = this.state.date;
-        const final_birth_date = birth_date.getFullYear() + "-" + birth_date.getMonth()+1 + "-" + birth_date.getDate();
         // console.log(email, firstname, lastname, password, Phone, Gender, birth_date.getFullYear() + "-" + birth_date.getMonth() + "-" + birth_date.getDate())
-        if (email && firstname && lastname && password && Phone !== "") {
-            const Submitted = await this.props.onSubmitToRegister(firstname, lastname, email, password, final_birth_date, Phone, Gender).then(data => {
+        if (email && hospital_name && address && password && Phone !== "") {
+            const Submitted = await this.props.onSubmitToRegister(hospital_name, address, email, password, Phone).then(data => {
                 return data
             });
             console.log("SUBMITTED DATA", Submitted);
